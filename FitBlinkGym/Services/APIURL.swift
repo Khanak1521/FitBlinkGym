@@ -25,4 +25,8 @@ enum APIURL {
         static let register = "register"
         static let verify = "verify"
     }
+    
+    static func finalUrl(_ path: String) -> String {
+            return baseUrl + path
+    }
 }
