@@ -2,7 +2,7 @@
 //  AppTextField.swift
 //  FitBlinkGym
 //
-//  Created by Dipang Sheth on 16/07/25.
+//  Created by Dipang Sheth on 11/04/25.
 //
 
 import SwiftUI
@@ -23,6 +23,7 @@ struct AppTextField: View {
                     TextField(title, text: $text)
                 }
             }
+            
             .padding()
             .font(Font.appFont(.regular, size: 16))
             .background(AppColors.subtitleColor.opacity(0.1))
