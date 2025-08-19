@@ -14,12 +14,14 @@ class LoginViewModel : ObservableObject {
     @Published var isFormValid: Bool = false
     
     @Published var cancellables: Set<AnyCancellable> = []
-    private var apiManager = APIManager()
+    private let apiManager: APIManagerProtocol
     
     @Published var loginResponse: LoginResponse?
     @Published var errorMessage: String?
     
-    init() {
+    init(apimanager: APIManagerProtocol = APIManager()) {
+        self.apiManager = apimanager
+        
         Publishers.CombineLatest($email, $password)
             .map {  email, password in
                 return self.isValidEmail(email) && self.isValidPassword(password)

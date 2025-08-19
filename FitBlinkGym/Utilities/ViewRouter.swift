@@ -11,4 +11,7 @@ enum ViewRouter : Hashable {
     case login
     case register
     case verfyEmail
+    case userDetail(UserList)
+    case customWebView
+
 }

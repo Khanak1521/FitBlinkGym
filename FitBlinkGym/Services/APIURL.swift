@@ -26,7 +26,12 @@ enum APIURL {
         static let verify = "verify"
     }
     
+    enum gym {
+        static let gym = "gyms"
+    }
+    
     static func finalUrl(_ path: String) -> String {
             return baseUrl + path
     }
 }
+

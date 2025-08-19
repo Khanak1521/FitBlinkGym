@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StartupView: View {
     @State private var path: [ViewRouter] = []
-    @AppStorage("token") var token = ""
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -19,12 +19,11 @@ struct StartupView: View {
                 Text("Welcome to FitBlink Gym")
                     .customFont(.bold,size: 20)
                 Button(action: {
-                        if !token.isEmpty {
-                            path.append(.register)
-                        } else {
-                            path.append(.login)
-                        }
-                    
+                    if let token: String = AuthManager.fetch("token"), !token.isEmpty {
+                        path.append(.dashboard)
+                    } else {
+                        path.append(.login)
+                    }                    
                 }) {
                     Text("Get Started")
                         .customFont(.bold,size: 18)
@@ -32,28 +31,48 @@ struct StartupView: View {
                         .frame(width: 240, height: 50)
                         .background(.primaryPink)
                         .cornerRadius(CornerRedious.ButtonCornerRadius)
-                }
+                    }
                 
                 .padding(.top, 40)
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .active:
+                        print("Ative")
+                    case .inactive:
+                        print("InActive")
+                    case .background:
+                        print("Background")
+                    default:
+                        break
+                    }
+                    
+                }
                 .navigationDestination(for: ViewRouter.self) { router in
+                    
                     switch router {
                     case .login:
                         LoginView(path: $path)
+                        
                     case .register:
                         Registerview(path: $path)
-                    case .verfyEmail:
-                        LoginView(path: $path)
+                        
                     case .dashboard:
-                        LoginView(path: $path)
+                        HomeView(path: $path)
+                        
+                    case .userDetail(let user):
+                        UserDetail(userDetail: user)
+                        
+                    case .verfyEmail:
+                        HomeView(path: $path)
+                        
+                    case .customWebView:
+                        CustomWebView()
                     }
-                    
                 }
             }
         }
         
         .navigationBarBackButtonHidden(true)
-        
-
     }
 }
 

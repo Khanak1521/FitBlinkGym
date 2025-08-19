@@ -20,12 +20,14 @@ class RegisterViewModel : ObservableObject {
     @Published var isFormValid: Bool = false
     
     @Published var cancellables: Set<AnyCancellable> = []
-    private var apiManager = APIManager()
+    private var apiManager: APIManagerProtocol
     
     @Published var registerResponse: RegisterResponse?
     @Published var errorMessage: String?
     
-    init() {
+    init(apiManager: APIManagerProtocol = APIManager()) {
+        
+        self.apiManager = apiManager
         
         Publishers.CombineLatest3($firstName, $lastName, $email)
             .combineLatest( Publishers.CombineLatest3($password, $countryCode, $phoneNumber) )
@@ -63,7 +65,6 @@ class RegisterViewModel : ObservableObject {
                     self.errorMessage = error.localizedDescription
                 case .finished:
                     print("Finished")
-                    break
                 }
             }) { registerResponse in
                 print(registerResponse)

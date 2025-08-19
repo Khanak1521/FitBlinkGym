@@ -50,8 +50,8 @@ struct LoginView: View {
                     .opacity(viewModel.isFormValid ? 1.0 : 0.5)
                     .onChange(of: viewModel.loginResponse) { response in
                         if let response = response, response.status ?? false, let token = response.accessToken {
-                            @AppStorage("token") var token = token
-                            path.append(.register)
+                            AuthManager.save("token", value: token)
+                            path.append(ViewRouter.dashboard)
                         }
                     }
                     
@@ -66,7 +66,7 @@ struct LoginView: View {
                             .foregroundStyle(.titleBlack)
                         
                         Button(action: {
-                            path.append(.register)
+                            path.append(ViewRouter.register)
                         }) {
                             Text("Register")
                                 .underline()
@@ -80,6 +80,14 @@ struct LoginView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .navigationDestination(for: ViewRouter.self) { router in
+            if router == .dashboard {
+                HomeView(path: $path)
+            }
+            else if router == .register {
+                Registerview(path: $path)
+            }
+        }
     }
 }
 

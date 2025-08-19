@@ -35,10 +35,10 @@ struct Registerview: View {
                         AppTextField(title: "Password", text: $viewModel.password, isSecure: false)
                         AppTextField(title: "Confirm Password", text: $viewModel.confirmPassword, isSecure: false)
                         HStack {
-                            AppTextField(title: "Country Code", text: $viewModel.countryCode, isSecure: false)
-                                .frame(width: 120)
+                            AppTextField(title: "Code", text: $viewModel.countryCode, isSecure: true)
+                                .frame(width: 100)
                                 .padding(.trailing, 10)
-                            AppTextField(title: "Phone Number", text: $viewModel.phoneNumber, isSecure: false)
+                            AppTextField(title: "Phone Number", text: $viewModel.phoneNumber, isSecure: true)
                         }
                         .ignoresSafeArea(.keyboard, edges: .bottom)
                     }
@@ -59,7 +59,7 @@ struct Registerview: View {
                     .opacity(viewModel.isFormValid ? 1.0 : 0.5)
                     .onChange(of: viewModel.registerResponse) { response in
                         if let response = response, response.status ?? false {
-                            path.append(.verfyEmail)
+                            path.append(ViewRouter.verfyEmail)
                         }
                     }
                     
