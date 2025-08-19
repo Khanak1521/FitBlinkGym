@@ -80,7 +80,7 @@ class APIManager : APIManagerProtocol {
                     let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
                     print(jsonObject)
                     } catch {
-                        print("❌ JSON parsing error: \(error)")
+                        print("❌ parsing error: \(error)")
                     }
                 
                 return data
