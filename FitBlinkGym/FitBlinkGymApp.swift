@@ -21,7 +21,7 @@ struct FitBlinkGymApp: App {
             ZStack {
                 if isBackground {
                     BackgroundView()
-                        .zIndex(1)
+                        .zIndex(2)
                 }
             }
             
