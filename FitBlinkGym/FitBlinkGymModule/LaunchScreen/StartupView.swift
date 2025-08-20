@@ -16,7 +16,11 @@ struct StartupView: View {
             VStack {
                 Image("launchIcon")
                     .padding()
+<<<<<<< HEAD
                 Text("Welcome Here To check rebase")
+=======
+                Text("Welcome Here")
+>>>>>>> f45c24c (change in startup view)
                     .customFont(.bold,size: 20)
                 Button(action: {
                     if let token: String = AuthManager.fetch("token"), !token.isEmpty {
