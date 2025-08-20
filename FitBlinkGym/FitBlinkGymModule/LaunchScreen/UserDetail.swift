@@ -27,7 +27,7 @@ struct UserDetail: View {
             Button {
                 path.append(.customWebView)
             } label: {
-                Text("Click here to open Webview")
+                Text("Click here Webview")
                     .customFont(.medium, size: 24)
                     .foregroundStyle(.primaryPink)
             }
